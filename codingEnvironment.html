@@ -79,6 +79,17 @@
                         <img src="images/cat3_numbered.png" style="margin-left:5px;margin-top:5px;outline-style: solid;outline-width: 1px;height:180px;" />
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <img src="images/dolphin1_numbered.png" style="margin-left:5px;margin-top:5px;outline-style: solid;outline-width: 1px;height:180px;" />
+                    </td>
+                    <td>
+                        <img src="images/dolphin2_numbered.png" style="margin-left:5px;margin-top:5px;outline-style: solid;outline-width: 1px;height:180px;" />
+                    </td>
+                    <td>
+                        <img src="images/dolphin3_numbered.png" style="margin-left:5px;margin-top:5px;outline-style: solid;outline-width: 1px;height:180px;" />
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -97,9 +108,16 @@
         <block type="whenrunclicked"></block>
         <block type="clearscreen"></block>
     </category>
-    <category name="cats" colour="175">
-        <block type="catpose"></block>
+    <category name="Animals" colour="175">
+        <block type="say"></block>  
+        <category name="Cats" colour="175">
+            <block type="catpose"></block>
+        </category>
+        <category name="Dolphins" colour="175">
+            <block type="dolphinpose"></block>
+        </category>
     </category>
+    
 
     <sep></sep>
 
@@ -178,11 +196,14 @@
         return spriteObj;
     }
 
-    /**********************
-     * Defining the cat *
-     **********************/
+    /******************************
+     * Defining the cat & dolphin *
+     ******************************/
     var catImage = new Image();
+    var dolphinImage = new Image();
+
     catImage.src = "images/cat1.png";
+    dolphinImage.src = "images/dolphin1.png"
 
     var cat1 = sprite({
         context: canvas.getContext("2d"),
@@ -192,15 +213,26 @@
         x: 0,
         y: 0
     });
-
-    /******************
-     * Show the cat *
-     ******************/
+    
+    var dolphin1 = sprite({
+        context: canvas.getContext("2d"),
+        width: 600,
+        height: 400,
+        image: dolphinImage,
+        x: 250,
+        y: 0
+    });
+    /**************************
+     * Show the cat & dolphin *
+     **************************/
     cat1.render();
+    dolphin1.render();
 
     var indexToArrays = 0;
     var numOfInstructions = 0;
-    var arrayOfPoses = [];
+    var arrayOfCatPoses = [];
+    var arrayOfDolphinPoses = [];
+    var text_words = [];
 
     /**************************************
      * RUN and STOP buttons on the canvas *
@@ -227,15 +259,32 @@
         window.requestAnimationFrame(animate);
     }
 
-    function updatePose(poseNum){
-        arrayOfPoses.push(poseNum);
+    function updateCatPose(poseNum){
+        arrayOfCatPoses.push(poseNum);
+        var previous_pose = 1;
+        if (arrayOfDolphinPoses.length > 0) {
+            previous_pose = arrayOfDolphinPoses[arrayOfDolphinPoses.length -1];
+        }
+        arrayOfDolphinPoses.push(previous_pose);
+        numOfInstructions++;
+    }
+
+    function updateDolphinPose(poseNum){
+        arrayOfDolphinPoses.push(poseNum);
+        var previous_pose = 1;
+        if (arrayOfCatPoses.length > 0) {
+            previous_pose = arrayOfCatPoses[arrayOfCatPoses.length -1];
+        }
+        arrayOfCatPoses.push(previous_pose);
         numOfInstructions++;
     }
 
     function animate() {
         setTimeout(function() {
-            setcatImage(arrayOfPoses[indexToArrays]);
-
+            clearCanvas();
+            setCatImage(arrayOfCatPoses[indexToArrays]);
+            setDolphinImage(arrayOfDolphinPoses[indexToArrays])
+            ctx.fillText(text_words[indexToArrays % text_words.length], 250, 400);
             indexToArrays++;
 
             if (indexToArrays == numOfInstructions)
@@ -253,7 +302,8 @@
 
     function resetCanvas(){
         clearCanvas();
-        setcatImage(1);
+        setCatImage(1);
+        setDolphinImage(1);
     }
 
     /*************************************
@@ -272,14 +322,30 @@
     /*****************************
      * Changing the cat's Pose *
      *****************************/
-    function setcatImage(catIndex){
+    function setCatImage(catIndex){
         if(!catIndex)
           catIndex = 1;
-        clearCanvas();
         catImage.src = "images/cat"+catIndex+".png";
         ctx.drawImage(cat1.image, cat1.x, cat1.y);
         ctx.save();
         ctx.restore();
+    }
+    /*****************************
+     * Changing the dolphin's Pose *
+     *****************************/
+    function setDolphinImage(dolphinIndex){
+        if(!dolphinIndex)
+          dolphinIndex = 1;
+        dolphinImage.src = "images/dolphin"+dolphinIndex+".png";
+        ctx.drawImage(dolphin1.image, dolphin1.x, dolphin1.y);
+        ctx.save();
+        ctx.restore();
+    }
+    /***********************
+     *    Say Some Words   *
+     ***********************/
+    function say(text) {
+        text_words.push(text);
     }
 
     /***********************
