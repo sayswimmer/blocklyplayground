@@ -216,10 +216,10 @@
     
     var dolphin1 = sprite({
         context: canvas.getContext("2d"),
-        width: 500,
-        height: 500,
+        width: 600,
+        height: 400,
         image: dolphinImage,
-        x: 250,
+        x: 150,
         y: 0
     });
     /**************************
@@ -263,9 +263,9 @@
         arrayOfCatPoses.push(poseNum);
         var previous_pose = 1;
         if (arrayOfDolphinPoses.length > 0) {
-            previous_pose = arrayOfDolphinPoses[arrayOfDolphinPoses.length -1];
+            previous_pose = arrayOfDolphinPoses[arrayOfDolphinPoses.length - 1];
         }
-        arrayOfDolphinPoses.push(previous_pose);
+        arrayOfCatPoses.push(previous_pose);
         numOfInstructions++;
     }
 
@@ -273,9 +273,9 @@
         arrayOfDolphinPoses.push(poseNum);
         var previous_pose = 1;
         if (arrayOfCatPoses.length > 0) {
-            previous_pose = arrayOfCatPoses[arrayOfCatPoses.length -1];
+            previous_pose = arrayOfCatPoses[arrayOfCatPoses.length - 1];
         }
-        arrayOfCatPoses.push(previous_pose);
+        arrayOfDolphinPoses.push(previous_pose);
         numOfInstructions++;
     }
 
