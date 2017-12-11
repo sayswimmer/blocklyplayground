@@ -108,12 +108,12 @@
         <block type="whenrunclicked"></block>
         <block type="clearscreen"></block>
     </category>
-    <category name="Animals" colour="175">
+    <category name="Animals" colour="45">
         <block type="say"></block>  
-        <category name="Cats" colour="175">
+        <category name="Cats" colour="45">
             <block type="catpose"></block>
         </category>
-        <category name="Dolphins" colour="175">
+        <category name="Dolphins" colour="45">
             <block type="dolphinpose"></block>
         </category>
     </category>
@@ -203,7 +203,7 @@
     var dolphinImage = new Image();
 
     catImage.src = "images/cat1.png";
-    dolphinImage.src = "images/dolphin1.png"
+    dolphinImage.src = "images/dolphin1.png";
 
     var cat1 = sprite({
         context: canvas.getContext("2d"),
@@ -216,8 +216,8 @@
     
     var dolphin1 = sprite({
         context: canvas.getContext("2d"),
-        width: 600,
-        height: 400,
+        width: 500,
+        height: 500,
         image: dolphinImage,
         x: 250,
         y: 0
@@ -283,7 +283,9 @@
         setTimeout(function() {
             clearCanvas();
             setCatImage(arrayOfCatPoses[indexToArrays]);
-            setDolphinImage(arrayOfDolphinPoses[indexToArrays])
+            setDolphinImage(arrayOfDolphinPoses[indexToArrays]);
+            
+            ctx.font = "20px Open Sans";
             ctx.fillText(text_words[indexToArrays % text_words.length], 250, 400);
             indexToArrays++;
 

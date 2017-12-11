@@ -48,7 +48,7 @@ Blockly.Blocks['dolphinpose'] = {
             .appendField(new Blockly.FieldDropdown([["1","1"], ["2","2"], ["3","3"]]), "dolphinIndex");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(175);
+        this.setColour(300);
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -62,7 +62,7 @@ Blockly.Blocks['say'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(175);
+        this.setColour(45);
         this.setTooltip("");
         this.setHelpUrl("");
     }
